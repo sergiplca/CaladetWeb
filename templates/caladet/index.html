@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static "caladet/img/favicon.ico" %}">
+
+    <title>Caladet - Detector de Tweets en català</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static "caladet/css/bootstrap.css" %}">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static "caladet/css/ionicons.min.css" %}">
+    <link rel="stylesheet" href="{% static "caladet/css/style.css" %}">
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static "caladet/js/ie10-viewport-bug-workaround.js" %}"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div id="h">
+    <div class="logo">CALADET</div>
+    <div class="social hidden-xs">
+        <a href="/caladet/api/">API</a>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 centered">
+                <h1>Benvingut al<br/>Detector de Tweets en català</h1>
+                <div class="mtb">
+                    <form name=t_form role="form" action="/caladet/" method="post" enctype="plain">
+                        <input type="text" name="tweet_entry" class="subscribe-input"
+                               placeholder="Escriu el teu tweet..." required>
+                        <button class='btn btn-conf btn-green' type="submit">Analitza</button>
+                    </form>
+                </div><!--/mt-->
+                {% if tweet_language %}
+                    <h3><b>{{ tweet_text }}</b></h3>
+                    {% if tweet_language == '1' %}
+                        <h3>Català</h3>
+                    {% else %}
+                        <h3>No Català</h3>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div><!--/row-->
+    </div><!--/container-->
+</div><!-- /H -->
+
+<div class="container ptb">
+    <div class="row centered">
+        <h2 class="mb">Últims anàlisis<br/></h2>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="price-table">
+                <div class="p-body">
+                    {% if latest_tweets_list %}
+                        <ul class="features">
+                            {% for tweet in latest_tweets_list %}
+                                {% if tweet.tweet_language == '1' %}
+                                    <li><b>{{ tweet.tweet_text }}</b><br/>Català</li>
+                                {% else %}
+                                    <li><b>{{ tweet.tweet_text }}</b><br/>No català</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div><!--/p-body-->
+            </div><!--/price-table-->
+        </div><!--/col-md-4-->
+        <div class="col-md-4">
+        </div>
+    </div><!--/row-->
+</div><!--/container-->
+
+<div id="f">
+    <div class="container">
+        <div class="row centered">
+            <h2>Universitat de Lleida</h2>
+            <h3>Escola Politècnica Superior</h3>
+            <h5>spc7@alumnes.udl.cat</h5>
+
+            <p class="mt">
+            </p>
+        </div><!--/row-->
+    </div><!--/container-->
+</div><!--/F-->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/retina-1.1.0.js"></script>
+</body>
+</html>
